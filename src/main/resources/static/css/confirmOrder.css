@@ -1,0 +1,32 @@
+.maincontainer{
+  height: 500px;
+  width: 1100px;
+  margin-left: 120px;
+  display: flex;
+}
+
+.addressContainer{
+  height: 100%;
+  width: 50%;
+  background-color: antiquewhite;
+}
+.oldAddress{
+  width: 90%;
+  height: 30%;
+  margin: 20px 20px 0px 20px;
+  border-radius: 10px;
+  justify-self: center;
+  background-color: blue;
+}
+.newAddress{
+  width: 90%;
+  height: 60%;
+  margin: 20px 20px 0px 20px;
+  border-radius: 10px;
+  justify-self: center;
+  background-color: blue;
+}
+.detailsContainer{
+  height: 100%;
+  width: 50%;
+}

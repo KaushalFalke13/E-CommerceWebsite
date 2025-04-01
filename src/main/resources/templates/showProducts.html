@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+  rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" data-th-href="@{'/css/headerAndFooter.css'}" />
+  <link rel="stylesheet" data-th-href="@{'/css/DisplayProducts.css'}" />
+</head>
+<body>
+    <header th:insert="~{header :: Navbar}">
+    </header>
+  <main>
+    <div class="mainheading">
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row">
+          <div class="filterText">FILTERS</div>
+          <div class="product-sort" onmouseup="changeSortOption()">
+              <span>Sort by:</span><span class="sortOptionSelected" >Recommended</span>
+              <span><i class="fa-solid fa-angle-down"></i></span>
+              <div class="productSortOption"> 
+                  <div class="sortOptions" onclick="sort(this)">Recommended</div>
+                  <div class="sortOptions" onclick="sort(this)">What's New</div>
+                  <div class="sortOptions" onclick="sort(this)">Popularity</div>
+                  <div class="sortOptions" onclick="sort(this)">Better Discount</div>
+                  <div class="sortOptions" onclick="sort(this)">Price: High to Low</div>
+                  <div class="sortOptions" onclick="sort(this)">Price: Low to High</div>
+              </div>
+          </div>
+      </div>
+</div>
+<div class="mainContainer">
+  <div class="Filters">
+      <div class="catagaries">
+          <div class="filterCatagaory">CATAGARIES</div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>Tshirts <span>
+                      (155956)
+                  </span></div>
+          </div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>Lounge Tshirts <span>
+                      (155956)
+                  </span></div>
+          </div>
+      </div>
+
+        <div class="Brand" >
+            <div class="filterCatagaory">BRAND 
+              <button class="searchBrand"> <i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        <div th:each="brand,iterStat : ${brandNameList}">
+            <div th:if="${iterStat.index < 8}" class="selectFilter">
+                <label class="customCheckbox BrandCheckBox">
+                <input type="checkbox" th:value="*{brand}" onchange="sortbyBrands()">
+                <div th:text="*{brand}"> 
+                        <!-- <span>(155956)</span> -->
+                    </div>
+            </div>
+        </div>
+        <div class="seeMore">+898 more</div>
+
+    </div>
+
+      <div class="priceBar">
+          <div class="filterCatagaory">PRICE</div>
+          <div class="rangeFilters">
+
+              <div class="Slider">
+                  <div class="progress">
+
+                  </div>
+              </div>
+              <div class="rangeInput">
+                  <input type="range" class="rangeMin" min="100" max="10000" value="100" >
+                  <input type="range" class="rangeMax" min="100" max="10000"  value="10000">
+              </div>
+              <div class="DisplayByPrice">
+                  <div class="inputMin">₹100  </div> - 
+                  <div class="inputMax"> ₹10000</div>
+              </div>
+          </div>
+      </div>
+
+      <div class=" Colour">
+          <div class="filterCatagaory"> 
+              <div class="searchcolourDiv">COLOUR
+                <button class="searchcolour"> <i class="fa-solid fa-magnifying-glass"></i></button></div></div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>Black <span>
+                      (155956)
+                  </span></div>
+          </div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>White <span>
+                      (155956)
+                  </span></div>
+          </div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>Blue <span>
+                      (155956)
+                  </span></div>
+          </div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>Navy Blue<span>
+                      (155956)
+                  </span></div>
+          </div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>Green <span>
+                      (155956)
+                  </span></div> 
+          </div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>Grey <span>
+                      (155956)
+                  </span></div>
+          </div>
+          <div class="selectFilter">
+              <label class="customCheckbox">
+                  <input type="checkbox" value="Tshirts"><div>Red <span>
+                      (155956)
+                  </span></div>
+          </div>
+          <div class="seeMore">+45 more</div> 
+        
+      </div>
+
+      <div class=" Discount">   
+          <div class="filterCatagaory">DISCOUNT RANGE </div>
+            <div class="selectFilter" th:each="i:${#numbers.sequence(1,9)}">
+              <label class="customCheckbox">
+                  <input type="radio" th:value="${i*10}" name="Discount" onclick="sortByDiscount(this)"><div> <span th:text="${i*10}" style="font-size: 15px;"></span>% and above</div>
+          </div>
+      </div>
+  </div>
+  <div class="displayProducts"> 
+      <div class="containerProduct"  th:each="Product : ${ProductList}" >
+        <a th:href="@{/{slug}(slug=${Product.slug})}" th:id=${Product.productId}>
+            <div class="image"><img class="img"data-th-src="@{${Product.images.image1}}" th:value="${Product.images.image1}" alt=""></div>
+          <div class="Ratings">
+              <div class="stars" th:text="${Product.rating.stars}">4.5 </div><span>&#10030</span> 
+              <div class="StarCount" th:text="${Product.rating.count}">2.4k</div>
+          </div>                
+          <div class="BrandName" th:text="${Product.brand.BrandName}">Technosport</div>
+          <div class="title" th:text="${Product.title}">Cricket Slim Fit Jersey</div>
+          <div class="WatchList">
+            <div class="AllImages">
+                <div class="dots-container">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div> 
+            <div>
+              <button  th:value ="${Product.productId}" onclick="addToWatchlist(event,this)"><i class="fa-regular fa-heart"></i><span>WATCHLIST</span></button>
+           </div>
+           <div class="size">Size: S</div>
+          </div>
+          <div class="priceDetails">
+              <div class="sellingPrice">Rs. <span th:text="${Product.price}"></span></div>
+              <div class="MRP">Rs.<span th:text="${Product.MRP}"></span></div>
+              <div class="discountOnMRP">(<span th:text="${Product.Discount}"></span>% OFF)</div>
+          </div>
+          <div class="fewLeftMes">Only Few Left!</div></a>
+      </div>
+      <div>
+  </div>
+</div>
+
+    
+</main>
+<footer th:insert="~{header :: Footer}">
+</footer>
+<script data-th-src="@{'/js/myntra.js'}"></script>
+<script data-th-src="@{'/js/SortProducts.js'}"></script>
+<script data-th-src="@{'/js/Watchlist.js'}"></script>
+
+</body>
+</html>

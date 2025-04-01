@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" data-th-href="@{'/css/headerAndFooter.css'}" />
+    <link rel="stylesheet" data-th-href="@{'/css/watchlist.css'}" />
+</head>
+
+<body>
+    <header th:insert="~{header :: Navbar}">
+    </header>
+    <main>
+        <div class="WatchListContainer">
+            <div class="headingRow">
+                <div class="heading">
+                    <h3>My Wishlist</h3> 
+                    <p class="watchlistCntinheading"><span th:text="*{length}"></span> items</p>  
+                </div>
+                <div class="removeditems">
+                    <div class="Removed">
+                        <img class="removeditemsImg" src="" alt="">
+                        <h4>Item Removed From WatchList</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="WatchListmainContent">
+              <div th:if="${newCartList.size == 0}"> 
+                <div class="noIteminWatchlist">
+                  <h2>YOUR WISHLIST IS EMPTY</h2>
+                  <p>Add items that you like to your wishlist. Review them anytime and easily move them to the bag.</p>
+                  <img data-th-src="@{/images/WatchList.webp}" alt="">
+                  <a data-th-href="@{/showProducts}"><button>CONTINUE SHOPPING</button></a>
+              </div>
+            </div>
+              <div class="WatchListContentItem" th:if="${newCartList.size > 0}" th:each="Product : ${newCartList}">
+                    <img th:src="@{${Product.images.image1}}" alt="">
+                    <button class="close" th:value="*{Product.productId}" onclick="removeWatchlistItem(this)">x</button>
+                    <div class="Details">
+                        <div class="title" th:text="*{Product.title}">StyleCast x Revolte Men Solid...</div>
+                        <div class="prices">
+                            <div class="current-price">Rs.<span th:text="*{Product.price}"></span></div>
+                            <div class="orignal-price">Rs.<span th:text="*{Product.MRP}"></span></div>
+                            <div class="discount-Percentage">(<span th:text="*{Product.Discount}"></span>%)</div>
+                        </div>
+                        <div class="AddToBag" ><button th:value="*{Product.productId}" onclick="addToBag(this)">MOVE TO BAG</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>   
+
+        
+        <!-- <script data-th-src="@{'/js/items.js'}"></script> -->
+        <script data-th-src="@{'/js/myntra.js'}"></script>
+        <script data-th-src="@{'/js/Watchlist.js'}"></script>
+    </body>
+</html>

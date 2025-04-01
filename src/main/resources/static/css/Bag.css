@@ -1,0 +1,446 @@
+body{
+  margin: 0px;
+  padding: 0px;
+  margin-top: 85px;
+   font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+   font-style : normal;
+}
+.billContainer{
+  height: auto;
+  display: flex;
+  width: 1300px;
+  align-content: space-evenly;
+  justify-content: flex-start;
+}
+.billItemsContainer{
+  width: 54%;
+  margin-left: 104px;
+  border-right: 0.5px solid rgba(139, 138, 138, 0.205);
+  min-height: 200px; 
+  /* background-color: aqua; */
+}
+/* .billItemsContainer::-webkit-scrollbar{
+  width: 5px;
+}
+.billItemsContainer::-webkit-scrollbar-track{
+  background-color: white;
+}
+.billItemsContainer::-webkit-scrollbar-thumb{
+  background-color: #dcdcdf;
+} */
+.deliveryDetails{
+  height: 65px;
+  max-width: 589px;
+  margin: 30px 10px 5px 40px;
+  background-color: rgba(255, 30, 0, 0.055);
+  margin-left: 90px;
+  border: 0.5px solid rgba(139, 138, 138, 0.205);
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.deliveryDetails h4{
+  padding: 5px;
+  font-size: 15px;
+  margin-left: 10px;
+  font-weight: 500;
+}
+.pinCode{
+  width: 22%;
+  margin: 15px;
+  margin-right: 20px;
+  background-color: rgba(255, 30, 0, 0);
+  height: 50%;
+  padding: 10px;
+  font-weight: 600;
+  color: red;
+  font-size: 12px;
+  border: 1px solid red;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.Offers{
+  max-height: auto;
+  max-width: 570px;
+  padding:0px 10px;
+  border: 0.5px solid rgba(139, 138, 138, 0.205);
+  margin: 8px 10px 5px 40px;
+  margin-left: 90px;
+  border-radius: 4px;
+}
+.offerHeading{
+  margin: 13px;
+  height: 20px;
+  margin-left: 15px;
+  display: flex;
+  font-size: large;
+  margin-bottom: 5px;
+  overflow:hidden;
+}
+.offerHeading h5{
+  margin: 0px;
+  padding: 0px;
+  font-size: 15px;
+  margin-left: 7px;
+}
+.offerlist{
+  font-size: small;
+  height: 30px;
+  width: 100%;
+  overflow:hidden ;
+}
+.fullOffers{
+  font-size: small;
+  max-height: 450px;
+  width: 100%;
+}
+.fullofferlist{
+  font-size: small;
+  height: 270px;
+  width: 100%;
+}
+.ShowMore{
+  width: 100px;
+  margin-left: 14px;
+  background-color: rgba(255, 30, 0, 0);
+  height: 30px;
+  font-weight: 600;
+  color: red;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+.selectItems{
+  margin: 15px; 
+  margin-top: 40px;
+  display: flex;
+  font-size: medium;
+  margin-left: 90px;
+  font-size: 13px;  
+}
+input[type="checkbox"] {
+  display: block;
+  height:17px;
+  width: 17px;
+  margin-top: 7px;
+} 
+.selectItems h5{
+  margin: 9px;
+  font-size: 15px;
+}
+.selectItemsBorder{
+  margin: 0%;
+  height: 35px;
+  width: 100px;
+  margin-left: 170px;
+  border-right: 0.5px solid rgba(139, 138, 138, 0.356);
+}
+.selectItems button{
+  height: 28px;
+  width: auto;
+  font-size: 10px;
+  align-content: center;
+  justify-content: center;
+  padding: 5px;
+  color: rgba(32, 32, 32, 0.664);
+  font-weight: 800;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+.bagitemsContainer{
+  max-height: auto;
+  max-width: 587px;
+  margin: 25px 10px 5px 0px;
+  margin-left: 90px;
+  border-radius: 4px;
+}
+.bagitem{
+  height: 184px;
+  width: 100%;
+  display: flex;
+  border: 0.5px solid rgba(139, 138, 138, 0.205);
+  position: relative;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.bagImage{
+  width: 20%;
+  height: 85%;
+  margin: 8px;
+}
+.bagProductsDetails{
+  width: 80%;
+  height: 85%;
+  margin: 10px 10px 10px 2px;
+}
+.bagBrand{
+  font-size: 14px;
+  font-weight: 600;
+
+}
+.bagTitle{
+  font-size: 15px;
+  margin-top: 4px;
+  font-weight: 400;
+}
+.soldBy{
+  margin-top: 2px;
+  color: gray;
+  font-size: smaller;
+}
+.selectBagItem{
+position: absolute;
+top: 5px;
+left: 12px;
+width: 25px;
+height: 25px;
+}
+.removeFromBag{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor:pointer;
+}
+.removeFromBag button{
+  text-decoration: none;
+  border: none;
+  background-color: white;
+  cursor:pointer;
+}
+
+.buttons{
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+.buttons button{
+  text-decoration: none;
+  border: none;
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.sizeButton{
+  width: 120px;
+  height: 23px;
+  cursor: pointer;
+}
+.QtyButton{
+  width: 64px;
+  height: 23px;
+  cursor: pointer;
+}
+.BagPriceDetails{
+  display: flex;
+  margin-top: 12px;
+  width: 50%;
+  height: 30px;
+}
+.price{
+  padding: 5px 3px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.MRP{
+  padding: 6px 3px;
+  font-size: 13px;
+  text-decoration: line-through;
+  color: gray;
+}
+.discount{
+  font-size: 14px;
+  padding: 5px 3px;
+  color: rgb(255, 96, 96);
+}
+.return{
+  font-size: 13px;
+  gap: 3px;
+}
+.return span{
+  margin-left: 2px;
+  margin-right: 5px;
+  font-weight: 700;
+}
+.addMoreFromWatchlist{
+  height: 20px;
+  color: black;
+  max-width: 560px;
+  border: 0.5px solid rgba(139, 138, 138, 0.205);
+  margin: 25px 10px 5px 0px;
+  margin-left: 90px;
+  border-radius: 4px;
+  padding: 15px;
+  gap: 5px;
+}
+.addMoreFromWatchlist span{
+  width: 350px;
+  height: 20px;
+  cursor:pointer;
+}
+#icon{
+  margin-left: 350px;
+}
+
+.bill{
+  width: 320px;
+  height: 400px;
+  margin-left: 17px;
+  margin-top: 18px;
+}
+.coupon{
+  margin: 0px;
+}
+.coupontitle{
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgb(71, 69, 69);
+}
+.applyCoupon{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  height: 40px;
+  border-bottom: 0.5px solid rgba(139, 138, 138, 0.205);
+}
+.applyCoupon i{
+  margin-top: 2px;
+  font-size: 20px;
+}
+.applyCoupon span{
+  width: 210px;
+  margin-top: 2px;
+  height: 25px;
+  font-size: 15px;  
+  font-weight: 600;
+}
+.applyCoupon button{
+  height: 25px;
+  width: 60px;
+  background-color: white;
+  font-size: 11px;
+  font-weight: 700;
+  color: red;
+  border: 1px solid red;
+}
+.applyCoupon button:hover{
+  background-color: rgba(245, 81, 81, 0.151);
+}
+
+.donationContainer{
+  width: 100%;
+  border-bottom: 0.5px solid rgba(139, 138, 138, 0.205); 
+}
+.margin{
+  margin-top: 10px;
+}
+.doneteCheckbox{
+  display: flex;
+  margin-top: 17px;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.doneteCheckbox span{
+  margin-top: 8px;
+}
+.donetebuttons{
+  gap: 10px;
+  margin-top: 20px;
+}
+.donetebuttons button{
+  height: 35px;
+  width: 55px;
+  margin-right:10px ;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  border-radius: 30px;
+  border: 0.5px solid rgba(139, 138, 138, 0.205); 
+  background-color: white;
+  justify-content: center;
+  color: black;
+}
+.knowMore{
+  color: rgb(255, 39, 111);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 5px;
+}
+.priceDetailsbox{
+  width: 100%;
+  height: 330px;
+}
+.pricedetail{
+color: rgb(85, 82, 82);
+  margin-top: 22px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.totalMRP{
+  display: flex;
+  margin-top: 20px;
+  font-size: 14px;
+  justify-content: space-between;
+  font-weight: 400;
+}
+.DiscountOnMRP{
+  display: flex;
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 400;
+  justify-content: space-between;
+}
+.CouponDiscount{
+  display: flex;
+  margin-top: 15px;
+  font-size: 14px;
+  justify-content: space-between;
+  font-weight: 400;
+}
+.PlatformFee{
+  display: flex;
+  margin-top: 15px;
+  font-size: 14px;
+  justify-content: space-between;
+  font-weight: 400;
+}
+.ShipingFee{
+  display: flex;
+  margin-top: 15px;
+  font-size: 14px;
+  justify-content: space-between;
+  border-bottom: 0.1px solid rgba(139, 138, 138, 0.205); 
+  padding-bottom: 20px;
+  font-weight: 400;
+}
+.freeShipping{
+  font-size: smaller;
+}
+.TotalAmount{
+  display: flex;
+  margin-top: 15px;
+  font-size: 17px;
+  font-weight: 600;
+  justify-content: space-between;
+}
+.PlaceOrder{
+  width: 100%;
+  height: 45px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(250, 70, 100);
+  font-size: small;
+  font-weight: 800;
+  margin-top:  15px;
+} 

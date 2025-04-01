@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bag</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" data-th-href="@{'/css/headerAndFooter.css'}" />
+    <link rel="stylesheet" data-th-href="@{'/css/Bag.css'}" />
+</head>
+
+<body>
+    <header th:insert="~{header :: Navbar}">
+    </header>   
+
+<main>
+    <div class="billContainer">
+        <div class="billItemsContainer">
+              <div class="deliveryDetails">
+                  <h4>Check Delivery time & services</h4>
+                      <button class="pinCode">ENTER PIN CODE</button>
+              </div>
+              <div class="Offers">
+                  <div class="offerHeading ">
+                      <img data-th-src="@{/images/discount-icon.webp}" alt="">
+                      <h5>Available Offers</h5>
+                  </div>
+                  <div class=" offersclass offerlist">
+                      <ul>
+                          <li>This is one of Myntra’s biggest sales events, offering discounts of up to 70-80% on a wide range of fashion and lifestyle products.</li>
+                          <li>Myntra often offers big sales during festivals like Diwali, Eid, Christmas, and New Year. These include up to 80% off on clothing, footwear, and accessories.</li>
+                          <li>Myntra provides exclusive discounts based on the season, offering products suitable for the current weather at discounted prices.</li>
+                          <li>
+                              Myntra hosts regular flash sales, offering limited-time deals on specific products. These are often available only for a few hours or until stocks last, offering substantial discounts.
+                          </li>
+                          <li> Discounts on clothing, footwear, and accessories for both men and women, often up to 70% off.</li>
+                          <li>Special offers on skincare, makeup, and grooming products, with up to 50-70% off.</li>
+                          <li> Deals on sports brands like Nike, Adidas, Puma, etc., including bundle offers and clearance sales.</li>
+                          <li>Offers on home decor, kitchenware, and furniture, with discounts up to 50-60%.</li>
+                          <li>Easy EMI options on purchases made with credit cards, allowing you to spread out the cost of larger purchases.</li>
+                          <li>Myntra offers discounts when you buy items in combination, such as Buy 1 Get 1 Free or Buy 2 Get 10% Off on specific products like T-shirts, shoes, or accessories.
+                          </li>
+                      </ul>
+
+                  </div>
+                  <button class="ShowMore" onclick="ShowOffers()">Show more</button>
+              </div>
+              <div class="selectItems">
+                  <input type="checkbox" class="mainCheckbox">
+                  <h5><span class="displaycnt">0</span>/<span class="BagProductLenght" th:text="*{length}"></span> ITEMS SELECTED </h5>
+                  <div class="selectItemsBorder">
+                      <button onclick="removeitemFromBag(this)">REMOVE</button></div> 
+                  <div><button>MOVE TO WATCHLIST</button></div>
+              </div>
+              <div class="bagitemsContainer"> 
+                <div class="bagitem" th:each="Product : ${newCartList}">
+                      <div class="selectBagItem">
+                    <input class="itemCheckbox" th:value="${Product.productId}" type="checkbox" onclick="checkBoxClicked()">
+                </div>
+                <div class="removeFromBag">
+                    <button th:value="${Product.productId}" onclick="removeitemFromBag(this)">X</button>
+                </div>
+                   <img th:src="@{${Product.images.image1}}" class="bagImage" alt="Product Image">
+                   
+                    <div class="bagProductsDetails">
+                        <div class="bagBrand">
+                            <span th:text="*{Product.brand.BrandName}"></span>
+                        </div>    
+                        <div class="bagTitle">
+                            <span th:text="*{Product.title}">Rhodium-Plated CZ Floral Studs</span>
+                        </div>
+                        <div class="soldBy">
+                            <span>Sold By: <span>DPG MARKETING PVT LTD</span> </span>
+                        </div>
+                        <div class="buttons">
+                            <button class="sizeButton">Size: Onesize <i class="fa-solid fa-angle-down"></i></button>
+                        <button class="QtyButton">Qty: <Span class="QtyCount"><select Class="mySelect">
+                            <option value="1"> 1</option>
+                            <option value="2"> 2</option>
+                            <option value="3"> 3</option>
+                          </select></Span></button>
+                        
+                        </div>
+                        <div class="BagPriceDetails">
+                            <div class="price">Rs.<span th:text="*{Product.price}"></span></div>
+                            <div class="MRP">Rs.<span th:text="*{Product.MRP}"></span></div>
+                            <div class="discount"><span th:text="*{Product.discount}"></span>% OFF</div>
+                        </div>
+                        <div class="return">
+                            <span><span th:text="*{Product.returnPeriod}"></span>days</span>
+                            return available
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <a href="/watchlist" style="text-decoration: none;">
+              <div class="addMoreFromWatchlist">
+                <i class="fa-regular fa-bookmark"></i>
+                <span>Add More From Watchlist</span><span><i class="fa-solid fa-angle-right" id="icon"></i></span>
+              </div></a>
+        </div>    
+
+        <div class="bill">
+            <div class="coupon">
+                <span class="coupontitle">COUPONS</span>
+            </div>
+            <div class="applyCoupon">
+                <i class="fa-solid fa-tag"></i>
+                <span>Apply Coupons</span>
+                <button>APPLY</button>
+            </div>
+            <div class="donationContainer">
+                <div class="coupon margin">
+                    <span class="coupontitle">SUPPORT TRANSFORMATIVE SOCIAL WORK IN INDIA</span>
+                </div>
+                <div class="doneteCheckbox">
+                    <input type="checkbox" class="donationCheckbox"><span>Donate and make a difference</span>
+                </div>
+                <div class="donetebuttons">
+                    <button onclick="changeColor(this)">₹10</button>
+                    <button onclick="changeColor(this)">₹20</button>
+                    <button onclick="changeColor(this)">₹50</button>
+                    <button onclick="changeColor(this)">₹100</button>
+                </div>
+                <div class="knowMore">Know More</div>
+            </div>
+            <div class="priceDetailsbox">
+                <div class="pricedetail">
+                    PRICE DETAILS (<span class="displayitemcnt"></span> Item)
+                </div>
+                <div class="totalMRP">
+                    <span>Total MRP</span>
+                    <span>₹<span class="DisplayTotalMRP"></span></span>
+                </div>
+                <div class="DiscountOnMRP">
+                    <span>Discount on MRP</span>
+                    <span style="color: rgb(73, 148, 55);"> - ₹<span class="DisplayTotalDiscount"></span></span>
+                </div>
+                <div class="CouponDiscount">
+                    <span>Coupon Discount</span>
+                    <span style="color: rgb(252, 89, 67);">Apply Coupon</span>
+                </div>
+                <div class="PlatformFee">
+                    <span>Platform Fee <span class="knowMore"> Know More</span></span>
+                    <span style="color: rgb(73, 148, 55);">FREE</span>
+                </div>
+                <div class="ShipingFee">
+                <span>Shipping Fee
+                    <span class="knowMore"> Know More</span>
+                    <div class="freeShipping">Free shipping for you.</div>
+                </span>
+                    <span >₹79</span>
+                </div>
+                <div class="TotalAmount">
+                    <span>Total Amount</span>
+                    <span >₹<span class="DisplayTotalAmount"></span></span>
+                </div>
+                <button class="PlaceOrder" onclick="placeOrder()">PLACE ORDER</button>
+            </div>
+        </div>
+    </div>
+</main>
+           
+        <script data-th-src="@{'/js/myntra.js'}"></script>
+        <script data-th-src="@{'/js/Bag.js'}"></script>
+    </body>
+</html>

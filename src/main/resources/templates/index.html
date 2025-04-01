@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Hover on Div</title>
+    <style>
+        .target-div {
+            width: 300px;
+            height: 200px;
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="target-div" id="targetDiv">
+        Hover over me!
+    </div>
+
+    <script>
+        // Get the target div
+        const targetDiv = document.getElementById("targetDiv");
+
+        // Function to be run when the mouse enters the div
+        function onMouseEnter() {
+            console.log("Mouse entered the div!");
+            targetDiv.style.backgroundColor = "lightgreen";  // Example action
+        }
+
+        // Function to be run when the mouse leaves the div
+        function onMouseLeave() {
+            console.log("Mouse left the div!");
+            targetDiv.style.backgroundColor = "lightblue";  // Reset color
+        }
+
+        // Add event listeners for mouseenter and mouseleave
+        targetDiv.addEventListener("mouseenter", onMouseEnter);
+        targetDiv.addEventListener("mouseleave", onMouseLeave);
+    </script>
+
+</body>
+</html>

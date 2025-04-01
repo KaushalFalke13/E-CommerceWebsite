@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product - Professional Design</title>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" data-th-href="@{'/css/headerAndFooter.css'}" />
+  <link rel="stylesheet" data-th-href="@{'/css/DisplayProducts.css'}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+</head>
+<body>
+    <header th:insert="~{header :: Navbar}">
+    </header>
+<main>
+<div class="container">
+    <div class="form-card" >
+        <h2>Create Product</h2>
+        <form action="/processData" data-th-object="${ProductsForm}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Product Title</label>
+                <input type="text" id="title" name="title" 
+                th:field="*{title}"
+                required>
+            </div>
+
+            <div class="form-group">
+                <label for="brand">Brand Name</label>
+                <input type="text" id="brand" name="brand" th:field="*{brand}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Product Description</label>
+                <textarea id="description" name="description" th:field="*{Discription}" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="mrp">MRP (Maximum Retail Price)</label>
+                <input type="number" id="mrp" name="mrp" th:field="*{MRP}" required min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price" th:field="*{Price}" required min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="discount">Discount (%)</label>
+                <input type="number" id="discount" th:field="*{discount}" name="discount" required min="0" max="100">
+            </div>
+
+            <div class="form-group">
+                <label for="stock">Stock Quantity</label>
+                <input type="number" id="stock" name="stock" th:field="*{stock}" required min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="searchKeyword ">searchKeyword1</label>
+                <input type="text" id="searchKeyword" name="searchKeyword" th:field="*{keyword1}" required>
+            </div>
+            <div class="form-group">
+                <label for="searchKeyword ">searchKeyword1</label>
+                <input type="text" id="searchKeyword" name="searchKeyword" th:field="*{keyword2}" required>
+            </div>
+            <div class="form-group">
+                <label for="searchKeyword ">searchKeyword1</label>
+                <input type="text" id="searchKeyword" name="searchKeyword" th:field="*{keyword3}" required>
+            </div>
+            <div class="form-group">
+                <label for="searchKeyword ">searchKeyword1</label>
+                <input type="text" id="searchKeyword" name="searchKeyword" th:field="*{keyword4}" required>
+            </div>
+            <div class="form-group">
+                <label for="searchKeyword ">searchKeyword1</label>
+                <input type="text" id="searchKeyword" name="searchKeyword" th:field="*{keyword5}" required>
+            </div>
+          
+            
+            
+
+            <div class="form-group">
+                <label for="images">Product Images</label>
+                <input type="file" id="image" name="images" accept="image/*" multiple required>
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="images">Product Images</label>
+                <input type="file" id="image" name="images" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="images">Product Images</label>
+                <input type="file" id="image" name="images" accept="image/*" >
+            </div>
+            <div class="form-group">
+                <label for="images">Product Images</label>
+                <input type="file" id="image" name="images" accept="image/*" >
+            </div>
+            <div class="form-group">
+                <label for="images">Product Images</label>
+                <input type="file" id="image" name="images" accept="image/*" >
+            </div>
+            <div class="form-group">
+                <label for="images">Product Images</label>
+                <input type="file" id="image" name="images" accept="image/*" >
+            </div> -->
+
+            <div class="form-group">
+                <label for="Category">Category</label>
+                <select id="Category" name="Category">
+                    <option value="ELECTRONICS">ELECTRONICS</option>
+                    <option value="FASHION">FASHION</option>
+                    <option value="HOME_AND_FURNITURE">HOME_AND_FURNITURE</option>
+                    <option value="BEAUTY_AND_PERSONAL_CARE">BEAUTY_AND_PERSONAL_CARE</option>
+                    <option value="SPORTS_AND_OUTDOORS">SPORTS_AND_OUTDOORS</option>
+                    <option value="HEALTH_AND_WELLNESS">HEALTH_AND_WELLNESS</option>
+                    <option value="TOYS_AND_BABY">TOYS_AND_BABY</option>
+                    <option value="BOOKS_AND_STATIONERY">BOOKS_AND_STATIONERY</option>
+                    <!-- <option value="GROCERIES_AND_GOURMET">GROCERIES_AND_GOURMET</option>
+                    <option value="AUTOMOTIVE">AUTOMOTIVE</option>
+                    <option value="PETS">PETS</option>
+                    <option value="ARTS_AND_CRAFTS_AND_HOBBIES">ARTS_AND_CRAFTS_AND_HOBBIES</option>
+                    <option value="OFFICE_SUPPLIES">OFFICE_SUPPLIES</option>
+                    <option value="GIFTS_AND_OCCASIONS">GIFTS_AND_OCCASIONS</option>
+                    <option value="FOOD_AND_BEVERAGES">FOOD_AND_BEVERAGES</option>
+                    <option value="DIGITAL_PRODUCTS">DIGITAL_PRODUCTS</option>
+                    <option value="TRAVEL_AND_LUGGAGE">TRAVEL_AND_LUGGAGE</option>
+                    <option value="CRAFTS_AND_HANDMADE">CRAFTS_AND_HANDMADE</option>
+                    <option value="LUXURY">LUXURY</option>
+                    <option value="INDUSTRIAL_AND_SCIENTIFIC">INDUSTRIAL_AND_SCIENTIFIC</option> -->
+                </select>
+            </div>
+                
+            <div class="form-group">
+                <label for="SubCategory">Category</label>
+                <select id="SubCategory" name="SubCategory">
+
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="productType">Subcategory</label>
+                <select id="productType" name="productType">
+                    
+                </select>
+            </div>    
+
+            <div class="form-group">
+                <button type="submit">Create Product</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const categories = {
+    ELECTRONICS: [
+        { value: "MOBILE_PHONES", text: "Mobile Phones" },
+        { value: "LAPTOPS", text: "Laptops" },
+        { value: "HEADPHONES", text: "Headphones" },
+        { value: "CAMERAS", text: "Cameras" },
+        { value: "TELEVISIONS", text: "Televisions" }
+    ],
+    FASHION: [
+        { value: "MEN_CLOTHING", text: "Men's Clothing" },
+        { value: "WOMEN_CLOTHING", text: "Women's Clothing" },
+        { value: "FOOTWEAR", text: "Footwear" },
+        { value: "ACCESSORIES", text: "Accessories" },
+        { value: "JEWELRY", text: "Jewelry" }
+    ],
+    HOME_AND_FURNITURE: [
+        { value: "LIVING_ROOM", text: "Living Room" },
+        { value: "KITCHEN", text: "Kitchen" },
+        { value: "BATHROOM", text: "Bathroom" },
+        { value: "BEDROOM", text: "Bedroom" },
+        { value: "OFFICE_FURNITURE", text: "Office Furniture" }
+    ],
+    BEAUTY_AND_PERSONAL_CARE: [
+        { value: "SKIN_CARE", text: "Skin Care" },
+        { value: "HAIR_CARE", text: "Hair Care" },
+        { value: "MAKEUP", text: "Makeup" },
+        { value: "FRAGRANCES", text: "Fragrances" },
+        { value: "PERSONAL_GROOMING", text: "Personal Grooming" }
+    ],
+    SPORTS_AND_OUTDOORS: [
+        { value: "FITNESS", text: "Fitness" },
+        { value: "OUTDOOR_GEAR", text: "Outdoor Gear" },
+        { value: "SPORTS_EQUIPMENT", text: "Sports Equipment" },
+        { value: "CYCLING", text: "Cycling" },
+        { value: "CAMPING", text: "Camping" }
+    ],
+    HEALTH_AND_WELLNESS: [
+        { value: "SUPPLEMENTS", text: "Supplements" },
+        { value: "WELLNESS_PRODUCTS", text: "Wellness Products" },
+        { value: "MEDICAL_SUPPLIES", text: "Medical Supplies" },
+        { value: "FITNESS_TRACKERS", text: "Fitness Trackers" }
+    ],
+    TOYS_AND_BABY: [
+        { value: "BABY_CARE", text: "Baby Care" },
+        { value: "TOYS", text: "Toys" },
+        { value: "DIAPERS", text: "Diapers" },
+        { value: "BABY_FURNITURE", text: "Baby Furniture" }
+    ],
+    BOOKS_AND_STATIONERY: [
+        { value: "FICTION", text: "Fiction" },
+        { value: "NON_FICTION", text: "Non-Fiction" },
+        { value: "ACADEMIC_BOOKS", text: "Academic Books" },
+        { value: "ART_SUPPLIES", text: "Art Supplies" },
+        { value: "OFFICE_SUPPLIES", text: "Office Supplies" }
+    ],
+    GROCERIES_AND_GOURMET: [
+        { value: "FRESH_FOOD", text: "Fresh Food" },
+        { value: "SNACKS", text: "Snacks" },
+        { value: "ORGANIC_FOOD", text: "Organic Food" },
+        { value: "GOURMET_GIFTS", text: "Gourmet Gifts" }
+    ],
+    AUTOMOTIVE: [
+        { value: "CAR_ACCESSORIES", text: "Car Accessories" },
+        { value: "MOTORBIKES", text: "Motorbikes" },
+        { value: "AUTO_PARTS", text: "Auto Parts" },
+        { value: "CAR_CARE_PRODUCTS", text: "Car Care Products" }
+    ],
+    PETS: [
+        { value: "PET_FOOD", text: "Pet Food" },
+        { value: "PET_CARE", text: "Pet Care" },
+        { value: "PET_ACCESSORIES", text: "Pet Accessories" },
+        { value: "PET_FURNITURE", text: "Pet Furniture" }
+    ],
+    ARTS_AND_CRAFTS_AND_HOBBIES: [
+        { value: "PAINTING", text: "Painting" },
+        { value: "KNITTING", text: "Knitting" },
+        { value: "SCULPTING", text: "Sculpting" },
+        { value: "CRAFT_TOOLS", text: "Craft Tools" }
+    ],
+    OFFICE_SUPPLIES: [
+        { value: "PAPER_PRODUCTS", text: "Paper Products" },
+        { value: "STATIONERY", text: "Stationery" },
+        { value: "PRINTERS", text: "Printers" },
+        { value: "OFFICE_EQUIPMENT", text: "Office Equipment" }
+    ],
+    GIFTS_AND_OCCASIONS: [
+        { value: "GIFTS", text: "Gifts" },
+        { value: "PARTY_SUPPLIES", text: "Party Supplies" },
+        { value: "HOLIDAY_DECOR", text: "Holiday Decor" }
+    ],
+    FOOD_AND_BEVERAGES: [
+        { value: "BEVERAGES", text: "Beverages" },
+        { value: "GOURMET_FOOD", text: "Gourmet Food" }
+    ],
+    DIGITAL_PRODUCTS: [
+        { value: "EBOOKS", text: "Ebooks" },
+        { value: "ONLINE_COURSES", text: "Online Courses" },
+        { value: "SOFTWARE", text: "Software" },
+        { value: "MUSIC", text: "Music" },
+        { value: "VIDEO_GAMES", text: "Video Games" }
+    ],
+    TRAVEL_AND_LUGGAGE: [
+        { value: "SUITCASES", text: "Suitcases" },
+        { value: "BACKPACKS", text: "Backpacks" },
+        { value: "TRAVEL_ACCESSORIES", text: "Travel Accessories" },
+        { value: "LUGGAGE_CARE", text: "Luggage Care" }
+    ],
+    CRAFTS_AND_HANDMADE: [
+        { value: "HANDMADE_JEWELRY", text: "Handmade Jewelry" },
+        { value: "HANDCRAFTED_FURNITURE", text: "Handcrafted Furniture" },
+        { value: "ARTWORK", text: "Artwork" },
+        { value: "HOMEMADE_CANDLES", text: "Homemade Candles" }
+    ],
+    LUXURY: [
+        { value: "HIGH_END_FASHION", text: "High-End Fashion" },
+        { value: "LUXURY_WATCHES", text: "Luxury Watches" },
+        { value: "PREMIUM_FURNITURE", text: "Premium Furniture" },
+        { value: "ART", text: "Art" }
+    ],
+    INDUSTRIAL_AND_SCIENTIFIC: [
+        { value: "INDUSTRIAL_EQUIPMENT", text: "Industrial Equipment" },
+        { value: "SCIENTIFIC_TOOLS", text: "Scientific Tools" }
+    ]
+};
+
+const subcategories = {
+        MOBILE_PHONES: [
+            { value: "Smartphones", text: "Smartphones" },
+            { value: "Feature Phones", text: "Feature Phones" },
+            { value: "Accessories", text: "Accessories (Cases, Chargers)" }
+        ],
+        LAPTOPS: [
+            { value: "Gaming Laptops", text: "Gaming Laptops" },
+            { value: "Business Laptops", text: "Business Laptops" },
+            { value: "Ultrabooks", text: "Ultrabooks" },
+            { value: "MacBooks", text: "MacBooks" },
+            { value: "2-in-1 Laptops", text: "2-in-1 Laptops" }
+        ],
+        HEADPHONES: [
+            { value: "Over-Ear Headphones", text: "Over-Ear Headphones" },
+            { value: "On-Ear Headphones", text: "On-Ear Headphones" },
+            { value: "In-Ear Headphones", text: "In-Ear Headphones" },
+            { value: "Wireless Headphones", text: "Wireless Headphones" },
+            { value: "Noise Cancelling Headphones", text: "Noise Cancelling Headphones" }
+        ],
+        CAMERAS: [
+            { value: "Digital Cameras", text: "Digital Cameras" },
+            { value: "DSLR Cameras", text: "DSLR Cameras" },
+            { value: "Mirrorless Cameras", text: "Mirrorless Cameras" },
+            { value: "Action Cameras", text: "Action Cameras (e.g., GoPro)" },
+            { value: "Camcorders", text: "Camcorders" }
+        ],
+        TELEVISIONS: [
+            { value: "LED TVs", text: "LED TVs" },
+            { value: "OLED TVs", text: "OLED TVs" },
+            { value: "Smart TVs", text: "Smart TVs" },
+            { value: "4K TVs", text: "4K TVs" },
+            { value: "8K TVs", text: "8K TVs" },
+            { value: "QLED TVs", text: "QLED TVs" }
+        ],
+        MEN_CLOTHING: [
+            { value: "T-Shirts", text: "T-Shirts" },
+            { value: "Jeans", text: "Jeans" },
+            { value: "Trousers", text: "Trousers" },
+            { value: "Shirts", text: "Shirts" },
+            { value: "Shorts", text: "Shorts" }
+        ],
+        WOMEN_CLOTHING: [
+            { value: "T-Shirts", text: "T-Shirts" },
+            { value: "Dresses", text: "Dresses" },
+            { value: "Tops", text: "Tops" },
+            { value: "Skirts", text: "Skirts" },
+            { value: "Pants", text: "Pants" }
+        ],
+        FOOTWEAR: [
+            { value: "Men's Shoes", text: "Men's Shoes" },
+            { value: "Women's Shoes", text: "Women's Shoes" },
+            { value: "Boots", text: "Boots" },
+            { value: "Sneakers", text: "Sneakers" }
+        ],
+        ACCESSORIES: [
+            { value: "Belts", text: "Belts" },
+            { value: "Sunglasses", text: "Sunglasses" },
+            { value: "Hats", text: "Hats" },
+            { value: "Wallets", text: "Wallets" }
+        ],
+        JEWELRY: [
+            { value: "Rings", text: "Rings" },
+            { value: "Earrings", text: "Earrings" },
+            { value: "Necklaces", text: "Necklaces" },
+            { value: "Bracelets", text: "Bracelets" }
+        ],
+        LIVING_ROOM: [
+            { value: "Sofas", text: "Sofas" },
+            { value: "Coffee Tables", text: "Coffee Tables" },
+            { value: "Chairs", text: "Chairs" },
+            { value: "TV Stands", text: "TV Stands" }
+        ],
+        KITCHEN: [
+            { value: "Storage", text: "Storage" },
+            { value: "Appliances", text: "Appliances" },
+            { value: "Dining Tables", text: "Dining Tables" },
+            { value: "Utensils", text: "Utensils" }
+        ],
+        BATHROOM: [
+            { value: "Showers", text: "Showers" },
+            { value: "Tubs", text: "Tubs" },
+            { value: "Storage", text: "Storage" },
+            { value: "Bath Mats", text: "Bath Mats" }
+        ],
+        BEDROOM: [
+            { value: "Beds", text: "Beds" },
+            { value: "Mattresses", text: "Mattresses" },
+            { value: "Wardrobes", text: "Wardrobes" },
+            { value: "Dressing Tables", text: "Dressing Tables" }
+        ],
+        OFFICE_FURNITURE: [
+            { value: "Desks", text: "Desks" },
+            { value: "Chairs", text: "Chairs" },
+            { value: "Storage", text: "Storage" },
+            { value: "Bookcases", text: "Bookcases" }
+        ],
+        SKIN_CARE: [
+            { value: "Cleansers", text: "Cleansers" },
+            { value: "Moisturizers", text: "Moisturizers" },
+            { value: "Sunscreen", text: "Sunscreen" },
+            { value: "Serums", text: "Serums" }
+        ],
+        HAIR_CARE: [
+            { value: "Shampoos", text: "Shampoos" },
+            { value: "Conditioners", text: "Conditioners" },
+            { value: "Hair Oils", text: "Hair Oils" },
+            { value: "Hair Masks", text: "Hair Masks" }
+        ],
+        MAKEUP: [
+            { value: "Foundations", text: "Foundations" },
+            { value: "Mascaras", text: "Mascaras" },
+            { value: "Lipsticks", text: "Lipsticks" },
+            { value: "Eyeshadows", text: "Eyeshadows" }
+        ],
+        FRAGRANCES: [
+            { value: "Perfumes", text: "Perfumes" },
+            { value: "Body Sprays", text: "Body Sprays" },
+            { value: "Deodorants", text: "Deodorants" }
+        ],
+        PERSONAL_GROOMING: [
+            { value: "Razors", text: "Razors" },
+            { value: "Shaving Cream", text: "Shaving Cream" },
+            { value: "Trimmers", text: "Trimmers" }
+        ],
+        FITNESS: [
+            { value: "Yoga", text: "Yoga" },
+            { value: "Weights", text: "Weights" },
+            { value: "Resistance Bands", text: "Resistance Bands" },
+            { value: "Exercise Mats", text: "Exercise Mats" }
+        ],
+        OUTDOOR_GEAR: [
+            { value: "Camping Gear", text: "Camping Gear" },
+            { value: "Backpacks", text: "Backpacks" },
+            { value: "Tents", text: "Tents" },
+            { value: "Sleeping Bags", text: "Sleeping Bags" }
+        ],
+        SPORTS_EQUIPMENT: [
+            { value: "Football", text: "Football" },
+            { value: "Basketball", text: "Basketball" },
+            { value: "Tennis", text: "Tennis" },
+            { value: "Badminton", text: "Badminton" }
+        ],
+        CYCLING: [
+            { value: "Mountain Bikes", text: "Mountain Bikes" },
+            { value: "Road Bikes", text: "Road Bikes" },
+            { value: "Bike Accessories", text: "Bike Accessories" }
+        ],
+        CAMPING: [
+            { value: "Camping Furniture", text: "Camping Furniture" },
+            { value: "Camping Lights", text: "Camping Lights" },
+            { value: "Camping Stoves", text: "Camping Stoves" }
+        ]
+};
+
+    function updateCategories() {
+        const productType = document.getElementById('Category').value;
+        const categorySelect = document.getElementById('SubCategory');
+        
+        categorySelect.innerHTML = "";
+
+        const categoryOptions = categories[productType] || [];
+        categoryOptions.forEach(option => {
+            const newOption = document.createElement('option');
+            newOption.value = option.value;
+            newOption.textContent = option.text;
+            categorySelect.appendChild(newOption);
+        });
+        updateSubCategories();
+    }
+
+    function updateSubCategories() {
+        const productType = document.getElementById('SubCategory').value;
+        const categorySelect = document.getElementById('productType');
+        
+        categorySelect.innerHTML = "";
+        const categoryOptions = subcategories[productType] || [];
+        categoryOptions.forEach(option => {
+            const newOption = document.createElement('option');
+            newOption.value = option.value;
+            newOption.textContent = option.text;
+            categorySelect.appendChild(newOption);
+        });
+    }
+
+    updateCategories();
+    updateSubCategories();
+    document.getElementById('Category').addEventListener('change', updateCategories);
+    document.getElementById('SubCategory').addEventListener('change', updateSubCategories);
+</script>
+</body>
+</html>

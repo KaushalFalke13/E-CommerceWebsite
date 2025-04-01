@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" data-th-href="@{'/css/headerAndFooter.css'}" />
+  <link rel="stylesheet" data-th-href="@{'/css/confirmOrder.css'}" />
+  
+  <style>
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .back-btn {
+      font-size: 24px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .add-address-btn {
+      background-color: #ff3f6c;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .address-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .address-card {
+      border: 1px solid #eaeaec;
+      padding: 20px;
+      border-radius: 4px;
+      position: relative;
+      background-color: white;
+    }
+
+    .address-card:hover {
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .address-type {
+      color: #ff3f6c;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .user-name {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .address-details {
+      color: #535766;
+      font-size: 14px;
+      line-height: 1.4;
+      margin-bottom: 15px;
+    }
+
+    .address-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: #ff3f6c;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .default-address {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #535766;
+      font-size: 14px;
+    }
+
+    .radio-btn {
+      accent-color: #ff3f6c;
+    }
+
+    .add-new-card {
+      border: 2px dashed #d4d5d9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .add-new-card:hover {
+      border-color: #ff3f6c;
+    }
+
+    .add-icon {
+      font-size: 24px;
+      color: #ff3f6c;
+      margin-bottom: 10px;
+    }
+
+    .add-new-text {
+      text-align: center;
+      color: #ff3f6c;
+      font-weight: 500;
+    }
+
+    .address-form {
+      background-color: #f9f9f9;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    @media (max-width: 480px) {
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header th:insert="~{header :: Navbar}">
+  </header>
+  <main>
+    <div class="container">
+  
+      <div class="address-grid">
+        <!-- Existing Address Cards -->
+      <div class="address-card">
+          <div class="address-type">HOME</div>
+        <div class="address-details">
+            <div th:if="${address != null}">
+              <p th:text="*{address.street}">123, Main Street,</p>
+              <p th:text="*{address.city}">Near Central Park,<p th:text="*{address.state}"></p></p>
+              <p th:text="*{address.pinCode}">New York, NY 10001</p>
+              <p>Mobile: +1 123 456 7890</p>
+            </div>
+            <div th:unless="${address != null}">
+              
+                <!-- <div id="success-message" style="display: none; color: green; margin-top: 15px;">
+                Address saved successfully!
+            </div> -->
+              <form class="address-form" method="POST">
+                <div class="form-group">
+                  <label for="street">Street Address</label>
+                  <input type="text" id="street" name="street" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="apt">Apartment, Suite, or Unit (optional)</label>
+                  <input type="text" id="apt" name="apt">
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="state">State/Province</label>
+                    <input type="text" id="state" name="state" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="zip">ZIP/Postal Code</label>
+                  <input type="text" id="zip" name="pinCode" required>  <!-- Changed name to pinCode -->
+                </div>
+
+                  <div class="form-group">
+                    <label for="country">Country</label>
+                    <select id="country" name="country" required>
+                      <option value="">Select Country</option>
+                      <option value="USA">United States</option>
+                      <option value="CAN">Canada</option>
+                      <option value="UK">United Kingdom</option>
+                      <option value="AUS">Australia</option>
+                      <!-- Add more countries as needed -->
+                    </select>
+                  </div>
+                
+
+                <button onclick="getUserAddress()">Save Address</button>
+              </form>
+            </div>
+        </div>
+          <div class="address-actions">
+              <button class="action-btn">EDIT</button>
+              <button class="action-btn">REMOVE</button>
+          </div>
+      </div>
+
+      </div>
+    </div>
+    <div class="detailsContainer">
+      <button onclick="StartPayment()">Pay</button>
+      <button onclick="confirmOrder()">Confirm Order</button>
+    </div>
+    </div>
+  </main>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script data-th-src="@{'/js/bag.js'}"></script>
+</body>
+
+</html>
