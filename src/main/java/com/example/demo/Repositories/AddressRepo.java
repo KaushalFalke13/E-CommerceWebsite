@@ -10,6 +10,6 @@ public interface AddressRepo extends JpaRepository<Address,Integer>{
 
   Address findByUser(Users user);
 
-  @SuppressWarnings({ "null", "unchecked" })
-  Address save(Address address);
+  @SuppressWarnings("null")
+  Address save( Address address);
 }

@@ -23,6 +23,6 @@ public interface UserRepo  extends JpaRepository<Users,Integer>{
     @Query("UPDATE WatchListCart w SET w.products = :products WHERE w.CartId = :cartId")
     void updateProductsSet(@Param("products") Set<Products> products, @Param("cartId")Integer cartId);
 
-  @SuppressWarnings({ "null", "unchecked" })
+  @SuppressWarnings({ "null" })
   Users save(Users users);
 }

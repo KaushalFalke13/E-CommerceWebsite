@@ -15,7 +15,7 @@ import com.example.demo.entities.WatchListCart;
 @Repository
 public interface WatchlistRepo  extends JpaRepository<WatchListCart,Integer>{
 
-  @SuppressWarnings({ "null", "unchecked" })
+  @SuppressWarnings({ "null" })
   WatchListCart save(WatchListCart watchListCart);
 
    

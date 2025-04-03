@@ -1,14 +1,20 @@
 package com.example.demo.controllers;
 
+import java.security.Principal;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.ProductsServicesImpl;
+import com.example.demo.Services.UserserviceImpl;
 import com.example.demo.entities.Products;
+import com.example.demo.entities.Users;
 import com.example.demo.entities.searchKeywords;
 import com.example.demo.forms.ChangeProductToProductForm;
 import com.example.demo.forms.ProductsForms;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -16,6 +22,32 @@ public class ForSorting {
 
 @Autowired
 private ProductsServicesImpl ProductsServices;
+
+@Autowired
+private UserserviceImpl userservice;
+
+
+@RequestMapping("/showProducts")
+public String showProductList(Principal principal,Model model,HttpSession session) throws JsonProcessingException {
+    Users user=null;
+    if (principal != null && principal.getName() != null) {
+        String username = principal.getName();
+        user = userservice.findByEmail(username); 
+    }
+    List<Products> ProductList = ProductsServices.getAllProducts();
+    Set<String> brandNameList = new HashSet<>();
+    for(Products  product: ProductList){
+       String brand = product.getBrand().getBrandName();
+       if(!brandNameList.contains(brand)){
+        brandNameList.add(brand);
+       }
+    }
+    session.setAttribute("currentProductList", ProductList);
+    model.addAttribute("brandNameList", brandNameList);
+    model.addAttribute("ProductList", ProductList);
+    model.addAttribute("user", user);
+    return "showProducts";
+}
 
   @RequestMapping("/searchProducts")  
   @ResponseBody
@@ -47,7 +79,6 @@ private ProductsServicesImpl ProductsServices;
   }
 
   
-@SuppressWarnings("unchecked")
 @RequestMapping(value = "/getProductsByBrand",method = RequestMethod.POST)
 @ResponseBody
 public Map<String, Object> getProductsByBrand(@RequestParam("BrandName") List<String> BrandName,HttpSession session){ 
@@ -68,7 +99,6 @@ public Map<String, Object> getProductsByBrand(@RequestParam("BrandName") List<St
 }
 
 
-@SuppressWarnings("unchecked")
 @RequestMapping(value = "/getProductsByDiscount",method = RequestMethod.POST)
 @ResponseBody
 public Map<String, Object> getProductsByDiscount(@RequestParam("DiscountPercent") int Discount,HttpSession session){ 
@@ -89,7 +119,6 @@ response.put("productsForms", productsForms);
 } 
 
 
-@SuppressWarnings("unchecked")
 @RequestMapping(value = "/getProductBetweenPrice",method = RequestMethod.POST)
 @ResponseBody
 public Map<String, Object> getProductBetweenPrice(@RequestParam("min") double min, @RequestParam("max") double max,HttpSession session){ 
@@ -110,7 +139,6 @@ response.put("productsForms", productsForms);
 }
 
 
-@SuppressWarnings("unchecked")
 @RequestMapping("/Recommended") 
 @ResponseBody
 public Map<String, Object> Recommended(HttpSession session){
@@ -151,11 +179,15 @@ public Map<String, Object> WhatsNew(HttpSession session){
 
 @RequestMapping("/Popularity")
 @ResponseBody
-public Map<String, Object> Popularity(HttpSession session){
+public Map<String, Object> Popularity(HttpSession session){ 
+  List<Products> ProductList = (List<Products>) session.getAttribute("currentProductList");
   // Sort by rating
-  // List<ProductsForms> productsForms = ChangeProductToProductForm.changeToProductForm(ProductList);
+  Products[] productListArr = ProductList.toArray(new Products[0]);
+  Arrays.sort(productListArr,Comparator.comparingInt(product->product.getRating().getCount()));
+  ProductList = Arrays.asList(productListArr);
+  List<ProductsForms> productsForms = ChangeProductToProductForm.changeToProductForm(ProductList);
   Map<String, Object> response=new HashMap<>();
-  // response.put("productsForms", productsForms);
+  response.put("productsForms", productsForms);
   return response;
 }
 
@@ -187,12 +219,15 @@ public Map<String, Object> showProductInDesc(HttpSession session){
 @RequestMapping("/sortAsc")
 @ResponseBody
 public Map<String, Object> showProductInAsc(HttpSession session){
-       List<Products> ProductList =  ProductsServices.SortByPriceATD();
-       // Sort Product by Price min
-       List<ProductsForms> productsForms = ChangeProductToProductForm.changeToProductForm(ProductList);
-       Map<String, Object> response=new HashMap<>();
-       response.put("productsForms", productsForms);
-       return response;
+  List<Products> ProductList = (List<Products>) session.getAttribute("currentProductList");
+  // Sort by Price
+  Products[] productListArr = ProductList.toArray(new Products[0]);
+  Arrays.sort(productListArr,Comparator.comparingDouble(product->product.getPrice()));
+  ProductList = Arrays.asList(productListArr);
+  List<ProductsForms> productsForms = ChangeProductToProductForm.changeToProductForm(ProductList);
+  Map<String, Object> response=new HashMap<>();
+  response.put("productsForms", productsForms);
+  return response;
 }
 
 } 

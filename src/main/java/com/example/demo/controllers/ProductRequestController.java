@@ -7,12 +7,14 @@ import java.nio.file.Paths;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.Repositories.searchKeywordRepository;
 import com.example.demo.Services.ProductsServicesImpl;
 import com.example.demo.entities.*;
 import com.example.demo.enums.CategoryTypes;
+import com.example.demo.enums.ProductType;
 import com.example.demo.enums.SubCategory;
 import com.example.demo.forms.ChangeProductToProductForm;
 import com.example.demo.forms.ProductsForms;
@@ -132,18 +134,18 @@ public class ProductRequestController {
 
 
 //   Display Particular Product
-  // @RequestMapping(value = "/{slug}", method = RequestMethod.GET)
-  // private String viewProducts(@PathVariable String slug, Model model) {
-  //   Products product = ProductsServices.SearchBySlug(slug);
+  @RequestMapping(value = "/{slug}", method = RequestMethod.GET)
+  private String viewProducts(@PathVariable String slug, Model model) {
+    Products product = ProductsServices.SearchBySlug(slug);
     
-  //   // ProductType productType = product.getCategory().getProductType();
-  //   // System.out.println(product.getCategory());
-  //   // List<Products> ListOfSimilarProduct = ProductsServices.SearchByProductType(productType);
-  //   // model.addAttribute("ListOfSimilarProduct", ListOfSimilarProduct);
+    ProductType productType = product.getCategory().getProductType();
+    System.out.println(product.getCategory());
+    List<Products> ListOfSimilarProduct = ProductsServices.SearchByProductType(productType);
+    model.addAttribute("ListOfSimilarProduct", ListOfSimilarProduct);
 
-  //   model.addAttribute("Product", product);
-  //   return "ViewProduct";
-  // }
+    model.addAttribute("Product", product);
+    return "ViewProduct";
+  }
 
 
 

@@ -12,7 +12,7 @@ import com.example.demo.enums.ProductType;
 @Repository
 public interface ProductsRepo  extends JpaRepository<Products,Integer>  {
 
-  @SuppressWarnings({ "null", "unchecked" })
+  @SuppressWarnings({ "null" })
   Products save(Products products);
  
   @SuppressWarnings("null")

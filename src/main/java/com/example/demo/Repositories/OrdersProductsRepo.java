@@ -5,7 +5,7 @@ import com.example.demo.entities.OrdersProducts;
 
 public interface OrdersProductsRepo extends JpaRepository<OrdersProducts,Integer>{
 
-  @SuppressWarnings({ "null", "unchecked" })
+  @SuppressWarnings({ "null" })
   OrdersProducts save( OrdersProducts ordersProducts);
 
 }

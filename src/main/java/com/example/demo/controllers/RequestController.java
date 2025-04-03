@@ -37,7 +37,6 @@ public class RequestController {
     }
 
 
-    
     @RequestMapping(value = "/addtoWatchlist", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addtoWatchlist(Principal principal, @RequestParam("productId") String productId) {

@@ -136,7 +136,6 @@ public class BagRequestController {
 
   
 
-  @SuppressWarnings("unchecked")
   @RequestMapping(value = "/getOrderdata", method = RequestMethod.POST)
   public String getOrderdata(Principal principal, @RequestParam("orderDetail") String orderDetailJson) throws Exception{
     ObjectMapper objectMapper = new ObjectMapper(); 
@@ -159,7 +158,6 @@ public class BagRequestController {
     }
     
  
-  @SuppressWarnings("unchecked")
   @RequestMapping(value = "/confirmOrder", method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity<String> confirmOrder(RedirectAttributes redirectAttributes,Principal principal) throws JsonMappingException, JsonProcessingException{
@@ -223,7 +221,6 @@ public class BagRequestController {
     try{
       String username = principal.getName();
       
-      @SuppressWarnings("unchecked")
       Map<String, Object>  orderDetail = (Map<String, Object>)allOrderDetailsMap.get(username);
 
       Object totalAmountObj = orderDetail.get("TotalPRICE");

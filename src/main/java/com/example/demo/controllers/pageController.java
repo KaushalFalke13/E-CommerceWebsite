@@ -2,10 +2,7 @@ package com.example.demo.controllers;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +17,7 @@ import com.example.demo.entities.Orders;
 import com.example.demo.entities.Products;
 import com.example.demo.entities.Users;
 import com.example.demo.entities.WatchListCart;
-import com.example.demo.forms.ProductsForms;
 import com.example.demo.forms.UsersForm;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 
 @Controller
 public class pageController {
@@ -58,26 +52,7 @@ public class pageController {
         return "Signup";
     }
 
-    @RequestMapping("/showProducts")
-    public String showProductList(Principal principal,Model model) throws JsonProcessingException {
-        Users user=null;
-        if (principal != null && principal.getName() != null) {
-            String username = principal.getName();
-            user = userservice.findByEmail(username); 
-        }
-        List<Products> ProductList = ProductsServices.getAllProducts();
-        Set<String> brandNameList = new HashSet<>();
-        for(Products  product: ProductList){
-           String brand = product.getBrand().getBrandName();
-           if(!brandNameList.contains(brand)){
-            brandNameList.add(brand);
-           }
-        }
-        model.addAttribute("brandNameList", brandNameList);
-        model.addAttribute("ProductList", ProductList);
-        model.addAttribute("user", user);
-        return "showProducts";
-    }
+  
 
     @RequestMapping("/watchlist")
     public String watchlist(Model model, Principal principal) {
@@ -139,13 +114,5 @@ public class pageController {
 
     
 
-    @RequestMapping("/addProducts")
-    public String AddProducts(Model model) {
-        
-        ProductsForms ProductsForm = new ProductsForms();
-        model.addAttribute("ProductsForm", ProductsForm);
-        System.out.println("addProducts called");
-
-        return "addProducts";
-    }
+    
 }

@@ -10,7 +10,7 @@ import com.example.demo.entities.Users;
 
 public interface OrderRepo extends JpaRepository<Orders,Integer>{
 
-  @SuppressWarnings({ "null", "unchecked" })
+  @SuppressWarnings({ "null" })
   Orders save( Orders order);
   
   @Query(value = "SELECT order_number FROM orders ORDER BY id DESC LIMIT 1", nativeQuery = true)

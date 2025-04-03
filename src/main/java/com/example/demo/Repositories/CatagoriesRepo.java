@@ -9,7 +9,7 @@ import com.example.demo.entities.Categories;
 @Repository
 public interface CatagoriesRepo extends JpaRepository<Categories,Integer>{
 
-  @SuppressWarnings({ "null", "unchecked" })
+  @SuppressWarnings({ "null" })
   Categories save(Categories catagory);
 
 }
