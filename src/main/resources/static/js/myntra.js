@@ -1,7 +1,3 @@
-
-
-
-
 const rangeInput = document.querySelectorAll(".rangeInput input"),
 progress = document.querySelector(".Slider .progress"),
 minPrice = document.querySelector(".inputMin"),
@@ -41,6 +37,7 @@ window.onload = function() {
 };
 
 function showimages(div) {
+  console.log(div);
   let productid = div.getAttribute("id"); 
   let image = div.closest('.containerProduct').querySelector('.img'); 
   let dots = div.closest('.containerProduct').querySelectorAll('.dot'); 

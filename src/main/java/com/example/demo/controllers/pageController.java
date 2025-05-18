@@ -46,12 +46,23 @@ public class pageController {
         return "login";
     }
 
+    @RequestMapping("/Adminlogin")
+    public String Adminlogin(Model model) {
+        model.addAttribute("UsersForm", new UsersForm());
+        return "Adminlogin";
+    }
+
     @RequestMapping("/Signup")
     public String Signup(Model model) {
         model.addAttribute("UsersForm", new UsersForm());
         return "Signup";
     }
 
+    @RequestMapping("/AdminSignup")
+    public String AdminSignup(Model model) {
+        model.addAttribute("UsersForm", new UsersForm());
+        return "AdminSignup";
+    }
   
 
     @RequestMapping("/watchlist")

@@ -79,6 +79,7 @@ public String showProductList(Principal principal,Model model,HttpSession sessio
   }
 
   
+@SuppressWarnings("unchecked")
 @RequestMapping(value = "/getProductsByBrand",method = RequestMethod.POST)
 @ResponseBody
 public Map<String, Object> getProductsByBrand(@RequestParam("BrandName") List<String> BrandName,HttpSession session){ 
@@ -98,7 +99,7 @@ public Map<String, Object> getProductsByBrand(@RequestParam("BrandName") List<St
   return response;
 }
 
-
+@SuppressWarnings("unchecked")
 @RequestMapping(value = "/getProductsByDiscount",method = RequestMethod.POST)
 @ResponseBody
 public Map<String, Object> getProductsByDiscount(@RequestParam("DiscountPercent") int Discount,HttpSession session){ 
@@ -118,7 +119,7 @@ response.put("productsForms", productsForms);
   return response;
 } 
 
-
+@SuppressWarnings("unchecked")
 @RequestMapping(value = "/getProductBetweenPrice",method = RequestMethod.POST)
 @ResponseBody
 public Map<String, Object> getProductBetweenPrice(@RequestParam("min") double min, @RequestParam("max") double max,HttpSession session){ 
@@ -138,7 +139,7 @@ response.put("productsForms", productsForms);
   return response;
 }
 
-
+@SuppressWarnings("unchecked")
 @RequestMapping("/Recommended") 
 @ResponseBody
 public Map<String, Object> Recommended(HttpSession session){
@@ -176,7 +177,7 @@ public Map<String, Object> WhatsNew(HttpSession session){
   return response;
 }
 
-
+@SuppressWarnings("unchecked")
 @RequestMapping("/Popularity")
 @ResponseBody
 public Map<String, Object> Popularity(HttpSession session){ 
@@ -215,7 +216,7 @@ public Map<String, Object> showProductInDesc(HttpSession session){
         return response;
 }
 
-
+@SuppressWarnings("unchecked")
 @RequestMapping("/sortAsc")
 @ResponseBody
 public Map<String, Object> showProductInAsc(HttpSession session){

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.demo.Repositories.AddressRepo;
 import com.example.demo.Repositories.BagRepo;
 import com.example.demo.Repositories.OrderRepo;
@@ -27,6 +28,7 @@ import com.example.demo.Repositories.OrdersProductsRepo;
 import com.example.demo.Services.ProductsServicesImpl;
 import com.example.demo.Services.UserserviceImpl;
 import com.example.demo.entities.Address;
+import com.example.demo.entities.Admin;
 import com.example.demo.entities.BagCart;
 import com.example.demo.entities.Orders;
 import com.example.demo.entities.OrdersDetails;
@@ -40,8 +42,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
-import lombok.var;
+//import lombok.var;
 
+import jakarta.transaction.Transactional;
 
 @Controller
 public class BagRequestController {
@@ -56,16 +59,15 @@ public class BagRequestController {
   private BagRepo bagRepo;
 
   @Autowired
-  private AddressRepo addressRepo ;
-  
- @Autowired
+  private AddressRepo addressRepo;
+
+  @Autowired
   private OrdersProductsRepo ordersProductsRepo;
 
   @Autowired
   private OrderRepo orderRepo;
 
-  private Map<String,Object> allOrderDetailsMap = new HashMap<>();
-  
+  private Map<String, Object> allOrderDetailsMap = new HashMap<>();
 
   @RequestMapping(value = "/addToBag", method = RequestMethod.POST)
   @ResponseBody
@@ -134,135 +136,137 @@ public class BagRequestController {
     return response;
   }
 
-  
-
+  @SuppressWarnings("unchecked")
   @RequestMapping(value = "/getOrderdata", method = RequestMethod.POST)
-  public String getOrderdata(Principal principal, @RequestParam("orderDetail") String orderDetailJson) throws Exception{
-    ObjectMapper objectMapper = new ObjectMapper(); 
+  public String getOrderdata(Principal principal, @RequestParam("orderDetail") String orderDetailJson)
+      throws Exception {
+    ObjectMapper objectMapper = new ObjectMapper();
     Map<String, Object> orderDetail = objectMapper.readValue(orderDetailJson, Map.class);
 
     String username = principal.getName();
-    allOrderDetailsMap.put(username,orderDetail);
+    allOrderDetailsMap.put(username, orderDetail);
 
     return "redirect:confirmOrder";
   }
 
-
   @RequestMapping("/confirmOrder")
-  public String confirmOrder(Model model,Principal principal){ 
+  public String confirmOrder(Model model, Principal principal) {
     String username = principal.getName();
     Users user = userservice.findByEmail(username);
     Address address = addressRepo.findByUser(user);
-    model.addAttribute("address",address);
-      return "confirmOrder";
-    }
-    
- 
+    model.addAttribute("address", address);
+    return "confirmOrder";
+  }
+
+  @Transactional
+  @SuppressWarnings("unchecked")
   @RequestMapping(value = "/confirmOrder", method = RequestMethod.POST)
   @ResponseBody
-  public ResponseEntity<String> confirmOrder(RedirectAttributes redirectAttributes,Principal principal) throws JsonMappingException, JsonProcessingException{
+  public ResponseEntity<String> confirmOrder(RedirectAttributes redirectAttributes, Principal principal)
+      throws JsonMappingException, JsonProcessingException {
 
-    try{
-    String username = principal.getName();
-    
-    Map<String, Object>  orderDetail = (Map<String, Object>)allOrderDetailsMap.get(username);
-
-    Users user = userservice.findByEmail(username);
-    Object totalMRPObj = orderDetail.get("TotalMRP");
-    Object productIdObj = orderDetail.get("product");
-    Object QtyObj = orderDetail.get("qty");
-
-    Object totalAmountObj = orderDetail.get("TotalPRICE");
-    float totalMRP = (totalMRPObj instanceof Number) ? ((Number) totalMRPObj).floatValue() : 0f;
-    float totalAmount = (totalAmountObj instanceof Number) ? ((Number) totalAmountObj).floatValue() : 0f;
-
-    List<String> productsID = (productIdObj instanceof List) ? ((List<String>) productIdObj) : new ArrayList<>();
-    List<String> Qty = (QtyObj instanceof List) ? ((List<String>) QtyObj) : new ArrayList<>();
-    Integer ordernumber = Optional.ofNullable(orderRepo.findLastOrderNumber()).orElse(0);
-    float TotalDiscounts = (totalMRP - totalAmount);
-    Orders orders = Orders.builder()
-        .user(user)
-        .OrderNumber(++ordernumber)
-        .TotalAmount(totalAmount)
-        .ordersDetails(OrdersDetails.builder()
-            .orderDate(LocalDate.now())
-            .orderTime(LocalTime.now())
-            .TotalMRP(totalMRP)
-            .TotalDoscount(TotalDiscounts)
-            .TotalAmount(totalAmount)
-            .build())
-        .build();
-    orderRepo.save(orders);
-    for (int index = 0; index < productsID.size(); index++) {
-      String productId = productsID.get(index);
-      String qtyStr = Qty.get(index);
-      Products products = ProductsServices.SearchProductById(productId);
-      Integer qty = Integer.parseInt(qtyStr);
-      float price = products.getPrice() * qty;
-      OrdersProducts ordersProducts = OrdersProducts.builder()
-          .orders(orders)
-          .products(products)
-          .Quantity(qty)
-          .price(price)
-          .build();
-      ordersProductsRepo.save(ordersProducts);
-    }
-    return ResponseEntity.ok("");
-  }catch (Exception e) {
-    return null;
-  }
-  }
-
-
-@RequestMapping(value="/startPayment",method = RequestMethod.POST)
-@ResponseBody
-  public String startPayment(Principal principal) throws RazorpayException{
-
-    try{
+    try {
       String username = principal.getName();
-      
-      Map<String, Object>  orderDetail = (Map<String, Object>)allOrderDetailsMap.get(username);
+      Map<String, Object> orderDetail = (Map<String, Object>) allOrderDetailsMap.get(username);
+
+      Users user = userservice.findByEmail(username);
+      Object totalMRPObj = orderDetail.get("TotalMRP");
+      Object productIdObj = orderDetail.get("product");
+      Object QtyObj = orderDetail.get("qty");
 
       Object totalAmountObj = orderDetail.get("TotalPRICE");
-    float totalAmount = (totalAmountObj instanceof Number) ? ((Number) totalAmountObj).floatValue() : 0f;
+      float totalMRP = (totalMRPObj instanceof Number) ? ((Number) totalMRPObj).floatValue() : 0f;
+      float totalAmount = (totalAmountObj instanceof Number) ? ((Number) totalAmountObj).floatValue() : 0f;
 
-    var client = new RazorpayClient("rzp_test_gSGPi3xiRwiLZa", 
-    "SlzFsSWutHOCUmsoUdeXvYA1");
+      List<String> productsID = (productIdObj instanceof List) ? ((List<String>) productIdObj) : new ArrayList<>();
+      List<String> Qty = (QtyObj instanceof List) ? ((List<String>) QtyObj) : new ArrayList<>();
+      Integer ordernumber = Optional.ofNullable(orderRepo.findLastOrderNumber()).orElse(0);
+      float TotalDiscounts = (totalMRP - totalAmount);
+      Orders orders = Orders.builder()
+          .user(user)
+          .OrderNumber(++ordernumber)
+          .TotalAmount(totalAmount)
+          .ordersDetails(OrdersDetails.builder()
+              .orderDate(LocalDate.now())
+              .orderTime(LocalTime.now())
+              .TotalMRP(totalMRP)
+              .TotalDoscount(TotalDiscounts)
+              .TotalAmount(totalAmount)
+              .build())
+          .build();
+      orderRepo.save(orders);
 
-
-    JSONObject ob = new JSONObject();
-    ob.put("amount", totalAmount*100);
-    ob.put("currency", "INR");
-    ob.put("receipt", "txn_12345");
-
-     Order order = client.orders.create(ob);  
-     return order.toString();
-  
-    }catch (Exception e){
-      return null;
-    }
-  }
-
-
-  @RequestMapping(value="/getUserAddress", method = RequestMethod.POST)
-@ResponseBody
-public ResponseEntity<AddressForms> saveAddress(Principal principal, @RequestBody AddressForms addressForm) {
-    try {
-        String username = principal.getName();
-        Users user = userservice.findByEmail(username);
-        
-        Address newaddress = Address.builder()
-                .street(addressForm.getStreet())
-                .city(addressForm.getCity())
-                .state(addressForm.getState())
-                .pinCode(addressForm.getPinCode())
-                .user(user)
-                .build();
-        
-        addressRepo.save(newaddress);
-        return ResponseEntity.ok(addressForm);
+      for (int index = 0; index < productsID.size(); index++) {
+        String productId = productsID.get(index);
+        String qtyStr = Qty.get(index);
+        Products products = ProductsServices.SearchProductById(productId);
+        Admin adminName = products.getAdmin();
+        Integer qty = Integer.parseInt(qtyStr);
+        ProductsServices.updateProductStock(productId, qty);
+        float price = products.getPrice() * qty;
+        OrdersProducts ordersProducts = OrdersProducts.builder()
+            .orders(orders)
+            .products(products)
+            .Quantity(qty)
+            .price(price)
+            .admin(adminName)
+            .build();
+        ordersProductsRepo.save(ordersProducts);
+      }
+      return ResponseEntity.ok("Order Placed Successfully");
     } catch (Exception e) {
       return null;
     }
-}
+  }
+
+  @SuppressWarnings("unchecked")
+  @RequestMapping(value = "/startPayment", method = RequestMethod.POST)
+  @ResponseBody
+  public String startPayment(Principal principal) throws RazorpayException {
+
+    try {
+      String username = principal.getName();
+
+      Map<String, Object> orderDetail = (Map<String, Object>) allOrderDetailsMap.get(username);
+
+      Object totalAmountObj = orderDetail.get("TotalPRICE");
+      float totalAmount = (totalAmountObj instanceof Number) ? ((Number) totalAmountObj).floatValue() : 0f;
+
+      var client = new RazorpayClient("rzp_test_gSGPi3xiRwiLZa",
+          "SlzFsSWutHOCUmsoUdeXvYA1");
+
+      JSONObject ob = new JSONObject();
+      ob.put("amount", totalAmount * 100);
+      ob.put("currency", "INR");
+      ob.put("receipt", "txn_12345");
+
+      Order order = client.orders.create(ob);
+      return order.toString();
+
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  @RequestMapping(value = "/getUserAddress", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<AddressForms> saveAddress(Principal principal, @RequestBody AddressForms addressForm) {
+    try {
+      String username = principal.getName();
+      Users user = userservice.findByEmail(username);
+
+      Address newaddress = Address.builder()
+          .street(addressForm.getStreet())
+          .city(addressForm.getCity())
+          .state(addressForm.getState())
+          .pinCode(addressForm.getPinCode())
+          .user(user)
+          .build();
+
+      addressRepo.save(newaddress);
+      return ResponseEntity.ok(addressForm);
+    } catch (Exception e) {
+      return null;
+    }
+  }
 }

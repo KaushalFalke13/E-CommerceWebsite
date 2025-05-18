@@ -156,7 +156,7 @@
         <ul>
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Products</a></li>
-            <li><a href="/admin/orders">Orders</a></li>
+            <li><a href="#">Orders</a></li>
             <li><a href="#">Customers</a></li>
             <li><a href="#">Reports</a></li>
             <li><a href="#">Settings</a></li>
@@ -172,26 +172,26 @@
             <div class="profile">
                 <img data-th-src="@{/images/myntra_logo.webp}" alt="Admin Profile">
                 <span th:text="${AdminName}" >Admin</span>
-            </div>
+            </div>  
         </div>
 
         <!-- Dashboard Stats -->
         <div class="dashboard-stats">
             <div class="stat-box">
-                <h3 th:text="${OrdersCount}">1,250</h3>
-                <p>Total Orders</p>
+                <h3 th:text="${pendingOrders.size()}">1,250</h3>
+                <p>NEW ORDERS</p>
             </div>
             <div class="stat-box">
-                <h3 th:text="${ProductsCount}">785</h3>
-                <p>Total Products</p>
+                <h3 th:text="${ProcessingOrders.size()}">785</h3> 
+                <p>PROCESSING</p>
             </div>
             <div class="stat-box">
-                <h3>320</h3>
-                <p>Total Customers</p>
+                <h3 th:text="${DeliveredOrders.size()}">320</h3>
+                <p>SHIPPED</p>
             </div>
             <div class="stat-box">
-                <h3>$15,000</h3>
-                <p>Total Sales</p>
+                <h3  th:text="${orderFormsList.size()}">$15,000</h3>
+                <p>DELIVERED</p>
             </div>
         </div>
 
@@ -204,64 +204,17 @@
                     <th>Customer</th>
                     <th>Status</th>
                     <th>Total</th>
-                    <th>Action</th>
+                    <!-- <th>Action</th> -->
                 </tr>
             </thead>
-            <tbody>
+            <tbody  class="OrderData">
                 <tr th:each="order : ${orderFormsList}">
                     <td th:text="${order.OrderId}">#12345</td>
                     <td th:text="${order.UserName}">John Doe</td>
                     <td th:text="${order.status}">Shipped</td>
                     <td th:text="${order.TotalAmount}">$120.00</td>
-                    <td><button>Edit</button></td>
                 </tr>
-                <!-- <tr>
-                    <td>#12346</td>
-                    <td>Jane Smith</td>
-                    <td>Pending</td>
-                    <td>$75.00</td>
-                    <td><button>Edit</button></td>
-                </tr>
-                <tr>
-                    <td>#12347</td>
-                    <td>Sam Lee</td>
-                    <td>Delivered</td>
-                    <td>$200.00</td>
-                    <td><button>Edit</button></td>
-                </tr> -->
-            </tbody>
-        </table>
-
-        <!-- Products Table -->
-        <h2>Manage Products</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product ID</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>#P001</td>
-                    <td>Wireless Headphones</td>
-                    <td>Electronics</td>
-                    <td>$50.00</td>
-                    <td>150</td>
-                    <td><button>Edit</button></td>
-                </tr>
-                <tr>
-                    <td>#P002</td>
-                    <td>Leather Wallet</td>
-                    <td>Accessories</td>
-                    <td>$30.00</td>
-                    <td>200</td>
-                    <td><button>Edit</button></td>
-                </tr>
+               
             </tbody>
         </table>
 
@@ -271,7 +224,8 @@
     <div class="footer">
         <p>&copy; 2025 eCommerce Platform | All Rights Reserved</p>
     </div>
-
+    <script data-th-src="@{'/js/Admin/Orders.js'}"></script>
 </body>
+
 
 </html>

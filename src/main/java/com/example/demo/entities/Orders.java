@@ -47,4 +47,61 @@ public class Orders {
 
   @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
   private List<OrdersProducts> ordersProducts;
+
+
+  public Integer getId() {
+    return Id;
+  }
+
+  public void setId(Integer id) {
+    Id = id;
+  }
+
+  public Users getUser() {
+    return user;
+  }
+
+  public void setUser(Users user) {
+    this.user = user;
+  }
+
+  public Integer getOrderNumber() {
+    return OrderNumber;
+  }
+
+  public void setOrderNumber(Integer orderNumber) {
+    OrderNumber = orderNumber;
+  }
+
+  public float getTotalAmount() {
+    return TotalAmount;
+  }
+
+  public void setTotalAmount(float totalAmount) {
+    TotalAmount = totalAmount;
+  }
+
+  public OrderStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(OrderStatus status) {
+    this.status = status;
+  }
+
+  public OrdersDetails getOrdersDetails() {
+    return ordersDetails;
+  }
+
+  public void setOrdersDetails(OrdersDetails ordersDetails) {
+    this.ordersDetails = ordersDetails;
+  }
+
+  public List<OrdersProducts> getOrdersProducts() {
+    return ordersProducts;
+  }
+
+  public void setOrdersProducts(List<OrdersProducts> ordersProducts) {
+    this.ordersProducts = ordersProducts;
+  }
 }

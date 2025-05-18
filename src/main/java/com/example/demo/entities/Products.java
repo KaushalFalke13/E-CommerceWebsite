@@ -46,6 +46,9 @@ public class Products {
 
   private String color;
 
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Admin admin;
+
   @Builder.Default
   @Enumerated(EnumType.STRING)
   private Status ProductStatus = Status.ACTIVE;
@@ -58,7 +61,8 @@ public class Products {
   @JoinColumn(name = "brand_id") 
   private Brands brand; 
 
-  
+
+
   @JsonManagedReference
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "cat_id")  
@@ -82,4 +86,172 @@ public class Products {
   @OneToMany(mappedBy = "products") 
   private List<OrdersProducts> ordersProducts;
 
-} 
+
+  public String getProductId() {
+    return productId;
+  }
+
+  public void setProductId(String productId) {
+    this.productId = productId;
+  }
+
+  public Images getImages() {
+    return images;
+  }
+
+  public void setImages(Images images) {
+    this.images = images;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public Integer getMRP() {
+    return MRP;
+  }
+
+  public void setMRP(Integer MRP) {
+    this.MRP = MRP;
+  }
+
+  public float getPrice() {
+    return price;
+  }
+
+  public void setPrice(float price) {
+    this.price = price;
+  }
+
+  public Integer getStock() {
+    return stock;
+  }
+
+  public void setStock(Integer stock) {
+    this.stock = stock;
+  }
+
+  public Integer getDiscount() {
+    return discount;
+  }
+
+  public void setDiscount(Integer discount) {
+    this.discount = discount;
+  }
+
+  public Integer getSoldCount() {
+    return soldCount;
+  }
+
+  public void setSoldCount(Integer soldCount) {
+    this.soldCount = soldCount;
+  }
+
+  public String getSlug() {
+    return slug;
+  }
+
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
+
+  public Integer getReturnPeriod() {
+    return returnPeriod;
+  }
+
+  public void setReturnPeriod(Integer returnPeriod) {
+    this.returnPeriod = returnPeriod;
+  }
+
+  public String getDiscription() {
+    return Discription;
+  }
+
+  public void setDiscription(String discription) {
+    Discription = discription;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  public Admin getAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(Admin admin) {
+    this.admin = admin;
+  }
+
+  public Status getProductStatus() {
+    return ProductStatus;
+  }
+
+  public void setProductStatus(Status productStatus) {
+    ProductStatus = productStatus;
+  }
+
+  public com.example.demo.entities.rating getRating() {
+    return rating;
+  }
+
+  public void setRating(com.example.demo.entities.rating rating) {
+    this.rating = rating;
+  }
+
+  public Brands getBrand() {
+    return brand;
+  }
+
+  public void setBrand(Brands brand) {
+    this.brand = brand;
+  }
+
+  public Categories getCategory() {
+    return category;
+  }
+
+  public void setCategory(Categories category) {
+    this.category = category;
+  }
+
+  public Set<searchKeywords> getSearchKeyword() {
+    return searchKeyword;
+  }
+
+  public void setSearchKeyword(Set<searchKeywords> searchKeyword) {
+    this.searchKeyword = searchKeyword;
+  }
+
+  public Set<WatchListCart> getWatchListCarts() {
+    return watchListCarts;
+  }
+
+  public void setWatchListCarts(Set<WatchListCart> watchListCarts) {
+    this.watchListCarts = watchListCarts;
+  }
+
+  public Set<BagCart> getBagCart() {
+    return bagCart;
+  }
+
+  public void setBagCart(Set<BagCart> bagCart) {
+    this.bagCart = bagCart;
+  }
+
+  public List<OrdersProducts> getOrdersProducts() {
+    return ordersProducts;
+  }
+
+  public void setOrdersProducts(List<OrdersProducts> ordersProducts) {
+    this.ordersProducts = ordersProducts;
+  }
+}

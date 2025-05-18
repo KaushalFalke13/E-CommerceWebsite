@@ -24,7 +24,6 @@ public interface ProductsServices {
   List<Products> findByDiscount(int Discount);
 
   Products SearchProductById(String id);
-  
-  
 
+  Boolean updateProductStock(String id,int qty);
 }

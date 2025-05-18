@@ -34,4 +34,28 @@ public class WatchListCart {
     @JsonBackReference
     private Products products;
 
+
+  public Integer getCartId() {
+    return CartId;
+  }
+
+  public void setCartId(Integer cartId) {
+    CartId = cartId;
+  }
+
+  public Users getUser() {
+    return user;
+  }
+
+  public void setUser(Users user) {
+    this.user = user;
+  }
+
+  public Products getProducts() {
+    return products;
+  }
+
+  public void setProducts(Products products) {
+    this.products = products;
+  }
 }

@@ -23,6 +23,7 @@ private Integer brandId;
 
 private String brandName;
 
- @OneToMany(mappedBy = "brand")
-    private List<Products> products;
+@OneToMany(mappedBy = "brand")
+private List<Products> products;
+
 }

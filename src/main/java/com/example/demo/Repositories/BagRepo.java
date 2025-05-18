@@ -13,7 +13,7 @@ import com.example.demo.entities.Users;
 @Repository
 public interface BagRepo extends JpaRepository<BagCart,Integer>{
 
-  @SuppressWarnings({ "null"})
+  @SuppressWarnings({ "null", "unchecked"})
   BagCart save(BagCart bagCart);
 
   BagCart findByUser(Users user);

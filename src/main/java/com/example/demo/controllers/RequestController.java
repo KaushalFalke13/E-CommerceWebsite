@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Repositories.*;
+import com.example.demo.Services.AdminServiceImpl;
 import com.example.demo.Services.ProductsServicesImpl;
 import com.example.demo.Services.UserserviceImpl;
 import com.example.demo.entities.*;
@@ -18,11 +19,14 @@ public class RequestController {
     private UserserviceImpl userservice;
 
     @Autowired
+    private AdminServiceImpl adminServiceImpl;
+
+    @Autowired
     private ProductsServicesImpl ProductsServices;
 
     @Autowired
     private WatchlistRepo watchlistRepo;
-
+    
     @RequestMapping(value = "/ProcessSignupData", method = RequestMethod.POST)
     public String ProcessSignupData(@ModelAttribute UsersForm usersForm) {
         String userID = UUID.randomUUID().toString();
@@ -33,9 +37,22 @@ public class RequestController {
                 .password(usersForm.getPassword())
                 .build();
         userservice.saveUser(user);
-        return "redirect:/showProducts";
+        return "redirect:/login";
     }
 
+    @RequestMapping(value = "/ProcessAdminSignupData", method = RequestMethod.POST)
+    public String ProcessAdminSignupData(@ModelAttribute UsersForm usersForm) {
+        String adminId = UUID.randomUUID().toString();
+        System.out.println(usersForm);
+        Admin user = Admin.builder()
+                .adminId(adminId)
+                .name(usersForm.getName())
+                .email(usersForm.getEmail())
+                .password(usersForm.getPassword())
+                .build();
+                adminServiceImpl.saveAdmin(user);
+        return "redirect:/AdminLogin";
+    }
 
     @RequestMapping(value = "/addtoWatchlist", method = RequestMethod.POST)
     @ResponseBody
