@@ -18,7 +18,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class ForSorting {
+public class SortingController {
 
 @Autowired
 private ProductsServicesImpl ProductsServices;

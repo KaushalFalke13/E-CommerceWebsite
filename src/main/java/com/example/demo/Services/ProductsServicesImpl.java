@@ -1,17 +1,18 @@
 package com.example.demo.Services;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.Repositories.CatagoriesRepo;
 import com.example.demo.Repositories.ProductsRepo;
 import com.example.demo.entities.Categories;
 import com.example.demo.entities.Products;
 import com.example.demo.enums.ProductType;
+import com.example.demo.forms.ChangeProductToProductForm;
+import com.example.demo.forms.ProductsForms;
 
 import jakarta.transaction.Transactional;
 
@@ -23,7 +24,6 @@ public class ProductsServicesImpl implements ProductsServices{
 
   @Autowired
   private CatagoriesRepo catagoriesRepo;
-
 
 
   @Override
@@ -108,6 +108,23 @@ public class ProductsServicesImpl implements ProductsServices{
     }
       product.get().setStock(stock-qty);
     return true; 
+  }
+
+
+  @Override
+  public List<ProductsForms> getProductsByIds(String[] productIds) {
+    List<Products> ProductList = new ArrayList<>();
+    for (String element : productIds) {
+      ProductList.add(SearchProductById(element));
+    }
+    return ChangeProductToProductForm.changeToProductForm(ProductList); 
+  }
+
+
+  @Override
+  public ProductsForms getProductById(String id) {
+    Products Product = SearchProductById(id);
+    return ChangeProductToProductForm.changeToProductForm(Product);
   }
 
 }
